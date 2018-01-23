@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Hello World!</title>
+</head>
+<body>
+	<h2 style="color: red;" th:text="${hello}"></h2>
+	<input type="button" value="登录"
+		onclick="javascript:window.location.href='comm/login.html'" />
+
+	<input type="button" value="注册"
+		onclick="javascript:window.location.href='comm/register.html'" />
+
+</body>
+</html>

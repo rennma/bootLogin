@@ -1,0 +1,47 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">  
+<head>
+<script type="text/javascript" charset="utf-8"	src="../js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/register.js"></script>
+<link href="../css/register.css" rel="stylesheet" type="text/css" />
+<title>注册</title>
+</head>
+<body>
+
+	<form th:action="@{register.do}" enctype="multipart/form-data"
+		method="post" th:object="${userVO}">
+		<div>
+			<span>请输入用户名：</span>
+			<input type="text" th:field="*{userName}"  onblur="checkUserNameIfExists();"/>
+			<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="error" id="firstError"></span>
+			<span id="errorMessage"></span>
+		</div>
+		<div>
+			<span>上传一张头像：</span> <input type="file" name="file" />
+		</div>
+		<div>
+			<span>请输入密码：</span>
+			<input type="password" th:field="*{password}" />
+			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+		</div>
+		<div>
+			<span>再次输入密码：</span>
+			<input type="password" th:field="*{passwordCopy}" onblur="checkPasswordIfSame();"/>
+			<span id="passwordError"></span>
+		</div>
+		<div>
+			<span>手机号：</span>
+			<input type="text" th:field="*{telPhone}" />
+			<span th:if="${#fields.hasErrors('telPhone')}" th:errors="*{telPhone}" class="error"></span>
+		</div>
+		<div>
+			<span>邮箱：</span>
+			<input type="text" th:field="*{email}" />
+			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+		</div>
+		<input type="submit" value="提交" />
+		<a href="login.html">我有账号，登录</a>
+	</form>
+</body>
+</html> 

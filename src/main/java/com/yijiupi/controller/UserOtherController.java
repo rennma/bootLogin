@@ -3,6 +3,8 @@ package com.yijiupi.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,6 @@ import com.yijiupi.constant.UserConstant;
  * @since jdk1.8.0
  */
 @Controller
-@SessionAttributes(value = UserConstant.USER_IN_SESSION)
 public class UserOtherController {
 
 	private Logger LOGGER = LoggerFactory.getLogger(UserOtherController.class);
@@ -33,9 +34,10 @@ public class UserOtherController {
 	 * @return String类型 返回给浏览器的页面的逻辑视图名.
 	 */
 	@RequestMapping(PathConstant.DEFAULT_JSP_URL)
-	public String indexPage() {
+	public String indexPage(Map<String, String> map) {
 		LOGGER.info("进入了默认页controller");
-		return "index";
+		map.put("hello", "我的第一个thymeleaf");
+		return "/index";
 	}
 
 	/**
@@ -56,8 +58,8 @@ public class UserOtherController {
 	 */
 	@RequestMapping(PathConstant.LOGOUT_DO_URL)
 	@ResponseBody
-	public Map<String, String> logout(Model model) {
-		model.addAttribute(UserConstant.USER_IN_SESSION, "");
+	public Map<String, String> logout(HttpSession session) {
+		session.removeAttribute(UserConstant.USER_IN_SESSION);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("message", "logoutSuccess");
 		return map;

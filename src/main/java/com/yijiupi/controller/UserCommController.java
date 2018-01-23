@@ -10,19 +10,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import com.yijiupi.constant.PathConstant;
 import com.yijiupi.constant.UserConstant;
 import com.yijiupi.constant.UserVOCheckMessageConstant;
@@ -42,7 +42,6 @@ import com.yijiupi.util.PropertyUtils;
  */
 @Controller
 @RequestMapping(PathConstant.COMM_PATH)
-@SessionAttributes(value = UserConstant.USER_IN_SESSION)
 public class UserCommController {
 	/** 日志使用slf4j. */
 	private Logger LOGGER = LoggerFactory.getLogger(UserCommController.class);
@@ -61,6 +60,7 @@ public class UserCommController {
 	 */
 	@RequestMapping(PathConstant.LOGIN_JSP_URL)
 	public String loginPage() {
+		LOGGER.info("进入了login.html");
 		return "comm/login";
 	}
 
@@ -71,8 +71,10 @@ public class UserCommController {
 	 *
 	 */
 	@RequestMapping(PathConstant.REGISTER_JSP_URL)
-	public String registerPage() {
-		return "comm/register";
+	public ModelAndView registerPage(ModelAndView model) {
+		model.setViewName("comm/register");
+		model.addObject("userVO", new UserVO());
+		return model;
 	}
 
 	/**
@@ -88,7 +90,7 @@ public class UserCommController {
 	 */
 	@RequestMapping(PathConstant.LOGIN_DO_URL)
 	@ResponseBody
-	public Map<String, String> login(String userName, String password, Model model) {
+	public Map<String, String> login(String userName, String password, HttpSession session) {
 		LOGGER.info("用户名：" + userName + ",密码：" + password);
 		// 用户名或密码如果为空，则返回一个消息告知用户.
 		HashMap<String, String> result = new HashMap<String, String>();
@@ -106,7 +108,7 @@ public class UserCommController {
 		}
 
 		// 如果用户名和密码也正确，则登陆成功，通知浏览器跳转到欢迎页面.
-		model.addAttribute(UserConstant.USER_IN_SESSION, userVO);
+		session.setAttribute(UserConstant.USER_IN_SESSION, userVO);
 		result.put("message", "redirect");
 		return result;
 	}
@@ -122,9 +124,10 @@ public class UserCommController {
 	 */
 	@RequestMapping(PathConstant.REGISTER_DO_URL)
 	public String register(@Valid UserVO userVO, BindingResult result,
-			@RequestParam(required = true) MultipartFile file, Model model) throws IOException {
+			@RequestParam(required = true) MultipartFile file,HttpSession session) throws IOException {
 		// 先验证用户输入的信息是否全部符合条件，重复密码使用javaScript在网页中验证、其他使用jsr303在后台验证的.
 		if (result.hasErrors()) {
+			LOGGER.info(result.getAllErrors().toString());
 			LOGGER.info("用户输入有错误");
 			return "comm/register";
 		}
@@ -151,7 +154,7 @@ public class UserCommController {
 
 		// 将UserVO对象添加到session中，并重定向到欢迎页面.
 		userVO.setPortraitPath(fileName);
-		model.addAttribute(UserConstant.USER_IN_SESSION, userVO);
+		session.setAttribute(UserConstant.USER_IN_SESSION, userVO);
 		return "redirect:../logined/welcome.html";
 	}
 

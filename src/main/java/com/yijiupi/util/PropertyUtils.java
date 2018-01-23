@@ -50,7 +50,7 @@ public class PropertyUtils {
 		try {
 			// 获得一个字符输入流
 			in = new InputStreamReader(
-					PropertyUtils.class.getClassLoader().getResourceAsStream("/uploadPath.properties"), "UTF-8");
+					PropertyUtils.class.getClassLoader().getResourceAsStream("uploadPath.properties"), "UTF-8");
 			// 将这个流交给Properties类的实例.
 			prop.load(in);
 		} catch (FileNotFoundException e) {

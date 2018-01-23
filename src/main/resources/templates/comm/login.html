@@ -1,0 +1,20 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">  
+    <head>  
+    <script type="text/javascript" charset="utf-8" src="../js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/login.js"></script>
+    <link href="../css/login.css" rel="stylesheet" type="text/css" />
+        <title>登录</title>  
+    </head>  
+    <body>  
+        <form>
+        <span>用户名：</span><input type="text" id="userName"/>
+		<span id="errorMessage" style="color:red;"></span>
+		</br>
+		<span>密码:</span><input type="password" id="password"/></br>
+		<input type="button" value="登录" onclick="login();"/>
+		<input type="button" value="注册" 	onclick="javascript:window.location.href='register.html'" />
+        </form>
+    </body>  
+</html> 

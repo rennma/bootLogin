@@ -24,13 +24,13 @@ function checkUserNameIfExists() {
 		},
 		dataType : "json",
 		success : function(result) {
-			console.log($("span[errorMessage='errorMessage']"));
-			console.log($("span[errorMessage='errorMessage']").val());
-			if ($("span[errorMessage='errorMessage']").length == 0) {
+			console.log($("#firstError"));
+			console.log($("#firstError").val());
+			if ($("#firstError").length == 0) {
 				$("#errorMessage").text(result.message);
 			}
-			if ($("span[errorMessage='errorMessage']").length != 0) {
-				$("span[errorMessage='errorMessage']").text(result.message);
+			if ($("#firstError").length != 0) {
+				$("#firstError").text(result.message);
 			}
 
 		}
