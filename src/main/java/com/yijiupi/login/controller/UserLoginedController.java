@@ -1,16 +1,17 @@
-package com.yijiupi.controller;
+package com.yijiupi.login.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.yijiupi.constant.PathConstant;
+
+import com.yijiupi.login.constant.PathConstant;
 
 /**
  * 该类用于处理用户访问登录后的页面的逻辑.
  * 
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 @Controller

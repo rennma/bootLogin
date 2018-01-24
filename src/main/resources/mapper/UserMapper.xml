@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yijiupi.dao.UserMapper">
-	<select id="getUserVO" resultType="com.yijiupi.VO.UserVO">
+<mapper namespace="com.yijiupi.login.dao.UserMapper">
+	<select id="getUserVO" resultType="com.yijiupi.login.VO.UserVO">
 		select
 		`userName`,`telPhone`,`email`,`portraitName` from `user` where
 		`userName`=#{userName} and `password`=#{password}
@@ -14,7 +14,7 @@
 		`userName`=#{userName}
 	</select>
 
-	<insert id="insertUserPO" parameterType="com.yijiupi.VO.UserVO">
+	<insert id="insertUserPO" parameterType="com.yijiupi.login.VO.UserVO">
 		insert into `user`
 		values
 		(#{userName},#{password},#{telPhone},#{email},#{portraitName})

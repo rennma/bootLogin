@@ -1,4 +1,4 @@
-package com.yijiupi.util;
+package com.yijiupi.login.util;
 
 /**
  * 该类是用于读取properties文件的工具类.
@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 
 /**
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  *
  */
@@ -23,7 +23,9 @@ public class PropertyUtils {
 	/** jdk提供的读取属性文件的类. */
 	private static Properties prop;
 
-	/** 该静态代码块用于初始化，获得读取属性文件uploadPath.properties的字符输入流. */
+	/**
+	 * 该静态代码块用于初始化，获得读取属性文件uploadPath.properties的字符输入流.
+	 */
 	static {
 		try {
 			loadProps();
@@ -44,7 +46,7 @@ public class PropertyUtils {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	synchronized static private void loadProps() throws IOException {
+	private synchronized static void loadProps() throws IOException {
 		prop = new Properties();
 		InputStreamReader in = null;
 		try {

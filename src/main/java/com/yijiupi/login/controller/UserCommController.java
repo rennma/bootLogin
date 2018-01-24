@@ -4,7 +4,7 @@
  * 
  */
 
-package com.yijiupi.controller;
+package com.yijiupi.login.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,15 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import com.yijiupi.constant.PathConstant;
-import com.yijiupi.constant.UserConstant;
-import com.yijiupi.constant.UserVOCheckMessageConstant;
-import com.yijiupi.PO.UserPO;
-import com.yijiupi.VO.UserVO;
-import com.yijiupi.service.impl.LoginServiceImpl;
-import com.yijiupi.service.impl.RegisterServiceImpl;
-import com.yijiupi.util.ControllerUtils;
-import com.yijiupi.util.PropertyUtils;
+
+import com.yijiupi.login.PO.UserPO;
+import com.yijiupi.login.VO.UserVO;
+import com.yijiupi.login.constant.PathConstant;
+import com.yijiupi.login.constant.UserConstant;
+import com.yijiupi.login.constant.UserVOCheckMessageConstant;
+import com.yijiupi.login.service.LoginService;
+import com.yijiupi.login.service.RegisterService;
+import com.yijiupi.login.util.ControllerUtils;
+import com.yijiupi.login.util.PropertyUtils;
 
 /**
  * 该类是包含与用户登录注册行为有关的处理逻辑的类.
@@ -47,10 +48,10 @@ public class UserCommController {
 	private Logger LOGGER = LoggerFactory.getLogger(UserCommController.class);
 
 	@Autowired
-	LoginServiceImpl loginService;
+	LoginService loginService;
 
 	@Autowired
-	RegisterServiceImpl registerService;
+	RegisterService registerService;
 
 	/**
 	 * 响应浏览器请求登录页面的方法.
@@ -124,7 +125,7 @@ public class UserCommController {
 	 */
 	@RequestMapping(PathConstant.REGISTER_DO_URL)
 	public String register(@Valid UserVO userVO, BindingResult result,
-			@RequestParam(required = true) MultipartFile file,HttpSession session) throws IOException {
+			@RequestParam(required = true) MultipartFile file, HttpSession session) throws IOException {
 		// 先验证用户输入的信息是否全部符合条件，重复密码使用javaScript在网页中验证、其他使用jsr303在后台验证的.
 		if (result.hasErrors()) {
 			LOGGER.info(result.getAllErrors().toString());

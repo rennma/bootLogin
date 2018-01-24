@@ -1,10 +1,10 @@
-package com.yijiupi.util;
+package com.yijiupi.login.util;
 
 /**
  * 该类是给控制器controller使用的工具类.
  * 
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 public class ControllerUtils {
@@ -18,7 +18,12 @@ public class ControllerUtils {
 	 * @return 布尔型，如果用户名或密码均不为空返回true，否则返回false.
 	 */
 	public static boolean ifUserNameOrPasswordNull(String userName, String password) {
-		boolean returnValue = !(null == userName || null == password || "".equals(userName) || "".equals(password));
-		return returnValue;
+		// 判断用户名和密码是否为null.
+		boolean returnValue1 = (null != userName && null != password);
+
+		// 判断用户名和密码是否与""值相等.
+		boolean returnValue2 = (!"".equals(userName)) && !"".equals(password);
+
+		return returnValue1 && returnValue2;
 	}
 }

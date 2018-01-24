@@ -4,7 +4,7 @@
  * 
  */
 
-package com.yijiupi.VO;
+package com.yijiupi.login.VO;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * 该类有两个构造器.
  * 
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 
@@ -44,7 +44,9 @@ public class UserVO {
 	/** 属性：头像存储路径. */
 	private String portraitName;
 
-	/** 有参构造器. */
+	/**
+	 * 有参构造器.
+	 */
 	public UserVO(String userName, String telPhone, String email, String portraitName) {
 		super();
 		this.userName = userName;
@@ -53,7 +55,9 @@ public class UserVO {
 		this.portraitName = portraitName;
 	}
 
-	/** 无参构造器. */
+	/**
+	 * 无参构造器.
+	 */
 	public UserVO() {
 		super();
 	}

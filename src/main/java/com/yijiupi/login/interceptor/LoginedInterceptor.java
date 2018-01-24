@@ -1,4 +1,4 @@
-package com.yijiupi.interceptor;
+package com.yijiupi.login.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,12 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import com.yijiupi.constant.UserConstant;
-import com.yijiupi.VO.UserVO;
+
+import com.yijiupi.login.VO.UserVO;
+import com.yijiupi.login.constant.UserConstant;
 
 /**
+ * 拦截用户访问登录后页面的行为的类.
+ * 
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 public class LoginedInterceptor implements HandlerInterceptor {

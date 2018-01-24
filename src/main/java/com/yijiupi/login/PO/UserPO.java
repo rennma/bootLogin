@@ -4,7 +4,7 @@
  * 
  */
 
-package com.yijiupi.PO;
+package com.yijiupi.login.PO;
 
 /**
  * 这是一个映射用户的pojo类.
@@ -32,7 +32,9 @@ public class UserPO {
 	/** 属性：头像路径. */
 	private String portraitName;
 
-	/** 有参构造器. */
+	/**
+	 * 有参构造器.
+	 */
 	public UserPO(String userName, String password, String telPhone, String email, String portraitName) {
 		this.userName = userName;
 		this.password = password;
@@ -41,7 +43,9 @@ public class UserPO {
 		this.portraitName = portraitName;
 	}
 
-	/** 无参构造器. */
+	/**
+	 * 无参构造器.
+	 */
 	public UserPO() {
 		super();
 	}

@@ -1,10 +1,10 @@
-package com.yijiupi.service;
+package com.yijiupi.login.service;
 
-import com.yijiupi.PO.UserPO;;
+import com.yijiupi.login.PO.UserPO;;
 
 /**
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 public interface RegisterService {

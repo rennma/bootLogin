@@ -1,26 +1,22 @@
-package com.yijiupi.controller;
+package com.yijiupi.login.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.yijiupi.constant.PathConstant;
-import com.yijiupi.constant.UserConstant;
+import com.yijiupi.login.constant.PathConstant;
+import com.yijiupi.login.constant.UserConstant;
 
 /**
  * 该类包含响应用户访问默认页、首页和注销登录状态的方法.
  * 
  * @author 魏阳军
- * @date 2018年1月15日 16:25
+ * @date 2018年1月24日 14:41
  * @since jdk1.8.0
  */
 @Controller
