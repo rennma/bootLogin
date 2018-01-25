@@ -22,7 +22,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginedInterceptor()).addPathPatterns("/logined/**");
-		registry.addInterceptor(new UserSessionThreadLocalInterceptor()).addPathPatterns("/logined/**");
+		registry.addInterceptor(new UserSessionThreadLocalInterceptor()).addPathPatterns("/**");
 		super.addInterceptors(registry);
 	}
 

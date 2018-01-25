@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yijiupi.login.constant.PathConstant;
 import com.yijiupi.login.constant.UserConstant;
+import com.yijiupi.login.threadLocal.UserSessionThreadLocal;
 
 /**
  * 该类包含响应用户访问默认页、首页和注销登录状态的方法.
@@ -55,7 +56,7 @@ public class UserOtherController {
 	@RequestMapping(PathConstant.LOGOUT_DO_URL)
 	@ResponseBody
 	public Map<String, String> logout(HttpSession session) {
-		session.removeAttribute(UserConstant.USER_IN_SESSION);
+		UserSessionThreadLocal.removeSessionAttribute(UserConstant.USER_IN_SESSION);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("message", "logoutSuccess");
 		return map;

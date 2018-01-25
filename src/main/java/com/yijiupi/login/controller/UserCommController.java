@@ -16,6 +16,8 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +25,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.yijiupi.login.PO.UserPO;
 import com.yijiupi.login.VO.UserVO;
+import com.yijiupi.login.configuration.RelativeUploadPathProperties;
 import com.yijiupi.login.constant.PathConstant;
 import com.yijiupi.login.constant.UserConstant;
 import com.yijiupi.login.constant.UserVOCheckMessageConstant;
 import com.yijiupi.login.service.LoginService;
 import com.yijiupi.login.service.RegisterService;
+import com.yijiupi.login.threadLocal.UserSessionThreadLocal;
 import com.yijiupi.login.util.ControllerUtils;
-import com.yijiupi.login.util.PropertyUtils;
 
 /**
  * 该类是包含与用户登录注册行为有关的处理逻辑的类.
@@ -41,6 +43,7 @@ import com.yijiupi.login.util.PropertyUtils;
  * @date 2018年1月15日 16:25
  * @since jdk1.8.0
  */
+@EnableConfigurationProperties(RelativeUploadPathProperties.class)
 @Controller
 @RequestMapping(PathConstant.COMM_PATH)
 public class UserCommController {
@@ -48,10 +51,13 @@ public class UserCommController {
 	private Logger LOGGER = LoggerFactory.getLogger(UserCommController.class);
 
 	@Autowired
-	LoginService loginService;
+	private LoginService loginService;
 
 	@Autowired
-	RegisterService registerService;
+	private RegisterService registerService;
+
+	@Autowired
+	private RelativeUploadPathProperties relativeUploadPathProperties;
 
 	/**
 	 * 响应浏览器请求登录页面的方法.
@@ -109,7 +115,7 @@ public class UserCommController {
 		}
 
 		// 如果用户名和密码也正确，则登陆成功，通知浏览器跳转到欢迎页面.
-		session.setAttribute(UserConstant.USER_IN_SESSION, userVO);
+		UserSessionThreadLocal.setSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		result.put("message", "redirect");
 		return result;
 	}
@@ -136,7 +142,9 @@ public class UserCommController {
 		LOGGER.info("用户输入没有错误");
 
 		// 如果用户填写的信息验证通过，则获得存储用户头像图片的路径、并将用户信息封装成UserPO对象.
-		String imagePath = PropertyUtils.getProperty("imagePath");
+		String basePath = new File("path.txt").getAbsolutePath();
+		String imagePath = basePath.substring(0, basePath.indexOf("path.txt"))
+				+ relativeUploadPathProperties.getImagePath();
 
 		// 图片重命名为当前毫秒数和原文件名的和.
 		String fileName = System.currentTimeMillis() + file.getOriginalFilename();
@@ -155,12 +163,12 @@ public class UserCommController {
 
 		// 将UserVO对象添加到session中，并重定向到欢迎页面.
 		userVO.setPortraitPath(fileName);
-		session.setAttribute(UserConstant.USER_IN_SESSION, userVO);
+		UserSessionThreadLocal.setSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		return "redirect:../logined/welcome.html";
 	}
 
 	/**
-	 * 响应用户点击登录按钮的方法.
+	 * 响应浏览器检查用户名是否存在的请求的方法.
 	 * 
 	 * @param userName
 	 *            用户名
