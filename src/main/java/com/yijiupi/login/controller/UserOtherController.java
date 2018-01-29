@@ -56,7 +56,7 @@ public class UserOtherController {
 	@RequestMapping(PathConstant.LOGOUT_DO_URL)
 	@ResponseBody
 	public Map<String, String> logout(HttpSession session) {
-		UserSessionThreadLocal.removeSessionAttribute(UserConstant.USER_IN_SESSION);
+		UserSessionThreadLocal.removeUserSessionAttribute(UserConstant.USER_IN_SESSION);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("message", "logoutSuccess");
 		return map;

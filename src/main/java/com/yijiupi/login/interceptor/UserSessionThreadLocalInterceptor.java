@@ -41,7 +41,7 @@ public class UserSessionThreadLocalInterceptor implements HandlerInterceptor {
 		String attributeName;
 
 		// 将Httpsession中的全部属性放入ThreadKLocal中.
-		Map<String, Object> userSession = UserSessionThreadLocal.getSessionAttributes();
+		Map<String, Object> userSession = UserSessionThreadLocal.getUserSessionAttributes();
 		while (sessionAttributesName.hasMoreElements()) {
 			attributeName = sessionAttributesName.nextElement();
 			userSession.put(attributeName, session.getAttribute(attributeName));
@@ -65,18 +65,19 @@ public class UserSessionThreadLocalInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 
 		// 获得被Set到ThreadLocal中的全部属性的key的集合.
-		Object[] toAddAttributesNameArray = UserSessionThreadLocal.getSessionAttributesNameToAdd().toArray();
+		Object[] toAddAttributesNameArray = UserSessionThreadLocal.getUserSessionAttributesNameToAdd();
+		
 
 		// 获得ThreadLocal中全部属性的集合.
-		Map<String, Object> userSession = UserSessionThreadLocal.getSessionAttributes();
+		Map<String, Object> userSession = UserSessionThreadLocal.getUserSessionAttributes();
 
-		// 根据key的集合和属性的集合吧进行了Set操作的属性全部同步到HttpSession中.
+		// 根据key的集合和属性的集合把进行了Set操作的属性全部同步到HttpSession中.
 		for (Object attributeName : toAddAttributesNameArray) {
-			session.setAttribute((String) attributeName, userSession.get(attributeName));
+			session.setAttribute((String) attributeName, userSession.remove(attributeName));
 		}
 
 		// 获得被从ThreadLocal中删除的全部属性的key的集合.
-		Object[] toRemoveAttributesNameArray = UserSessionThreadLocal.getSessionAttributesToRemove().toArray();
+		Object[] toRemoveAttributesNameArray = UserSessionThreadLocal.getUserSessionAttributesToRemove();
 
 		// 根据上一步获得的key的集合将session中对应属性删除.
 		for (Object attributeName : toRemoveAttributesNameArray) {

@@ -115,7 +115,7 @@ public class UserCommController {
 		}
 
 		// 如果用户名和密码也正确，则登陆成功，通知浏览器跳转到欢迎页面.
-		UserSessionThreadLocal.setSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
+		UserSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		result.put("message", "redirect");
 		return result;
 	}
@@ -136,6 +136,8 @@ public class UserCommController {
 		if (result.hasErrors()) {
 			LOGGER.info(result.getAllErrors().toString());
 			LOGGER.info("用户输入有错误");
+			String basePath = new File("path.txt").getAbsolutePath();
+			LOGGER.info(basePath);
 			return "comm/register";
 		}
 
@@ -163,7 +165,7 @@ public class UserCommController {
 
 		// 将UserVO对象添加到session中，并重定向到欢迎页面.
 		userVO.setPortraitPath(fileName);
-		UserSessionThreadLocal.setSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
+		UserSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		return "redirect:../logined/welcome.html";
 	}
 
