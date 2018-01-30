@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.yijiupi.login.configuration.RelativeUploadPathProperties;
 
@@ -18,6 +19,7 @@ import com.yijiupi.login.configuration.RelativeUploadPathProperties;
  */
 @MapperScan("com.yijiupi.login.dao")
 @SpringBootApplication
+@ComponentScan("com.yijiupi.login.*")
 public class BootLoginApplication extends SpringBootServletInitializer {
 
 	@Override

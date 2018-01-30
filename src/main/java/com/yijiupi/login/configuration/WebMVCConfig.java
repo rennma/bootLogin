@@ -21,6 +21,12 @@ import com.yijiupi.login.interceptor.UserSessionThreadLocalInterceptor;
  */
 @Configuration
 public class WebMVCConfig extends WebMvcConfigurerAdapter {
+	
+	@Bean
+    public UserSessionThreadLocalInterceptor getUserSessionThreadLocalInterceptor(){
+        return new UserSessionThreadLocalInterceptor();
+    }
+	
 	/**
 	 * 向springMVC注册拦截器.
 	 */
@@ -28,7 +34,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginedInterceptor()).addPathPatterns("/logined/**");
 
-		registry.addInterceptor(new UserSessionThreadLocalInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(getUserSessionThreadLocalInterceptor()).addPathPatterns("/**");
 
 		super.addInterceptors(registry);
 	}

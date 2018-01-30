@@ -59,6 +59,9 @@ public class UserCommController {
 	@Autowired
 	private RelativeUploadPathProperties relativeUploadPathProperties;
 
+	@Autowired
+	private UserSessionThreadLocal userSessionThreadLocal;
+
 	/**
 	 * 响应浏览器请求登录页面的方法.
 	 * 
@@ -115,7 +118,7 @@ public class UserCommController {
 		}
 
 		// 如果用户名和密码也正确，则登陆成功，通知浏览器跳转到欢迎页面.
-		UserSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
+		userSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		result.put("message", "redirect");
 		return result;
 	}
@@ -165,7 +168,7 @@ public class UserCommController {
 
 		// 将UserVO对象添加到session中，并重定向到欢迎页面.
 		userVO.setPortraitPath(fileName);
-		UserSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
+		userSessionThreadLocal.setUserSessionAttribute(UserConstant.USER_IN_SESSION, userVO);
 		return "redirect:../logined/welcome.html";
 	}
 

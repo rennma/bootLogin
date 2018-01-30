@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,9 @@ import com.yijiupi.login.threadLocal.UserSessionThreadLocal;
 public class UserOtherController {
 
 	private Logger LOGGER = LoggerFactory.getLogger(UserOtherController.class);
+
+	@Autowired
+	private UserSessionThreadLocal userSessionThreadLocal;
 
 	/**
 	 * 如果浏览器发过来的url只包含服务器地址和应用名而不包含其它任何距离页面请求，则返回默认的页面index.html.
@@ -56,7 +60,7 @@ public class UserOtherController {
 	@RequestMapping(PathConstant.LOGOUT_DO_URL)
 	@ResponseBody
 	public Map<String, String> logout(HttpSession session) {
-		UserSessionThreadLocal.removeUserSessionAttribute(UserConstant.USER_IN_SESSION);
+		userSessionThreadLocal.removeUserSessionAttribute(UserConstant.USER_IN_SESSION);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("message", "logoutSuccess");
 		return map;

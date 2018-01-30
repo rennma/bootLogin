@@ -1,11 +1,15 @@
 package com.yijiupi.login.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yijiupi.login.constant.PathConstant;
+import com.yijiupi.login.threadLocal.UserSessionThreadLocal;
 
 /**
  * 该类用于处理用户访问登录后的页面的逻辑.
@@ -17,8 +21,10 @@ import com.yijiupi.login.constant.PathConstant;
 @Controller
 @RequestMapping(PathConstant.LOGINED_COMM_PATH)
 public class UserLoginedController {
-	private Logger LOGGER = LoggerFactory.getLogger(UserCommController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(UserCommController.class);
 
+	@Autowired
+	private UserSessionThreadLocal userSessionThreadLocal;
 	/**
 	 * 响应浏览器请求欢迎页面的方法.
 	 * 
@@ -28,6 +34,7 @@ public class UserLoginedController {
 	@RequestMapping(PathConstant.WELCOME_JSP_URL)
 	public String loginPage() {
 		LOGGER.info("进入welcome.html");
+		LOGGER.info(userSessionThreadLocal.getUserSessionAttributes().toString());
 		return "logined/welcome";
 	}
 
